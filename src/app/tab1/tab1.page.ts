@@ -93,9 +93,16 @@ export class Tab1Page {
     }
   
     this.geofence.addOrUpdate(fence).then(
-       () => alert('Geofence added'),
+       () => {
+        alert('Geofence added');
+        
+       },
        (err) => alert('Geofence failed to add' + JSON.stringify(err))
      );
+
+     this.geofence.onTransitionReceived().subscribe((res) => {
+      alert('Notified');
+    });
   }
 
   addFence() {
