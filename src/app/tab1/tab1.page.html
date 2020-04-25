@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-row>
+    <ion-col text-start padding-top>
+      <ion-title>Covid Zones</ion-title>
+    </ion-col>
+    <ion-col text-end>
+      <ion-button (click)="loadMap()" shape="round" fill="outline">
+        <ion-icon slot="start" name="refresh"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-header>
+<ion-content class="ion-padding">
+ 
+  <div class="map-wrapper">
+    <div id="map_center">
+      <ion-icon name="locate"></ion-icon>
+    </div>
+    <div #map id="map"></div>
+  </div>
+  <div id="address">
+    <span>{{address}}</span>
+  </div>
+ 
+ 
+</ion-content>

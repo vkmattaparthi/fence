@@ -1,0 +1,8 @@
+{
+  "name": "fence",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "defaultBrowser": "chrome"
+}
