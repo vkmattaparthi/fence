@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef} from '@angular/core';
 import { Geofence } from '@ionic-native/geofence/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { DataService } from '../services/data.service';
 
 declare var google;
 
@@ -16,23 +17,25 @@ export class Tab1Page {
   map: any;
   address:string;
 
-  constructor(private geofence: Geofence, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) {
+  constructor(private geofence: Geofence, private geolocation: Geolocation, 
+    private nativeGeocoder: NativeGeocoder, private dataService : DataService) {
     
   }
 
   ngOnInit() {
+    this.dataService.geoFences = [];
     this.loadMap();
   }
 
   loadMap() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      alert('triggered again');
       let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
       let mapOptions = {
       center: latLng,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
+    //this.dataService.myPosition = {latitude : resp.coords.latitude, longitude: resp.coords.longitude}
     this.getAddressFromCoords(resp.coords.latitude, resp.coords.longitude);
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -41,7 +44,7 @@ export class Tab1Page {
       console.log('accuracy',this.map);
       this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
     });
-      this.addGeofence(1, 123-323, resp.coords.latitude, resp.coords.longitude, 'Hyderabad', 'home');
+      // this.addGeofence(1, 123-323, resp.coords.latitude, resp.coords.longitude, 'Hyderabad', 'home');
      }).catch((error) => {
        alert('Error getting location : ' + JSON.stringify(error));
      });
@@ -94,8 +97,12 @@ export class Tab1Page {
   
     this.geofence.addOrUpdate(fence).then(
        () => {
-        alert('Geofence added');
-        
+        this.dataService.geoFences = [{id: fence.id,
+          latitude: fence.latitude,
+          longitude: fence.longitude,
+          radius: fence.radius,
+          transitionType: fence.transitionType,
+          notification: fence.notification}]
        },
        (err) => alert('Geofence failed to add' + JSON.stringify(err))
      );
@@ -103,10 +110,6 @@ export class Tab1Page {
      this.geofence.onTransitionReceived().subscribe((res) => {
       alert('Notified');
     });
-  }
-
-  addFence() {
-    alert();
   }
 
 }

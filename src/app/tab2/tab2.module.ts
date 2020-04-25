@@ -7,12 +7,14 @@ import { Tab2Page } from './tab2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
+    LeafletModule,
     ExploreContainerComponentModule,
     Tab2PageRoutingModule
   ],

@@ -1,17 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Covid Zone</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-content>
+  <div *ngIf="map" style="height: 80vh;" leaflet [(leafletCenter)]="center"
+    [leafletOptions]="options" [leafletLayersControl]="layersControl">
+    <div *ngFor="let l of layers" [leafletLayer]="l"></div>
+  </div>
 </ion-content>
+
+<ion-footer>
+  
+</ion-footer>

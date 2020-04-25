@@ -11,11 +11,13 @@ import { AppComponent } from './app.component';
 import { Geofence } from '@ionic-native/geofence/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), LeafletModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
